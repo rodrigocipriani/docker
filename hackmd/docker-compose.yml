@@ -4,6 +4,7 @@
 version: '3'
 services:
   database:
+    container_name: hackmd-db
     # Don't upgrade PostgreSQL by simply changing the version number
     # You need to migrate the Database to the new PostgreSQL version
     image: postgres:9.6-alpine
@@ -46,6 +47,7 @@ services:
   #    restart: always
 
   app:
+    container_name: hackmd-app
     # Uncomment the following section to build the image yourself:
     #build:
     #  context: .
