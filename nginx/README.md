@@ -7,3 +7,4 @@
 ## ToDo's
 
 - Create `.env` to put env variables
+- Remove configuration from nginx.conf

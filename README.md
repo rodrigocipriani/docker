@@ -7,6 +7,7 @@ Several systems pre configurated for Docker with docker-compose
 - gitlab
 - hackmd
 - nginx
+- portainer
 
 ## How to use
 

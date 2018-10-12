@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  templates:
+    image: portainer/templates
+    container_name: "portainer-templates"
+    networks:
+      - local
+    ports:
+      - "${PORTAINER_TEMPLATES_PORT}:80"
+
+  portainer:
+    image: portainer/portainer
+    container_name: "portainer-app"
+#Automatically choose 'Manage the Docker instance where Portainer is running' by adding <--host=unix:///var/run/docker.sock> to the command
+    command: --templates http://templates/templates.json
+    networks:
+      - local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/portainer/data:/data
+    ports:
+      - "${PORTAINER_APP_PORT}:9000"
+
+  watchtower:
+    image: v2tec/watchtower
+    container_name: "portainer-watchtower"
+    command: --cleanup portainer-app portainer-watchtower portainer/templates
+    networks:
+      - local
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  local:
+    driver: bridge
