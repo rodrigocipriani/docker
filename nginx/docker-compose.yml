@@ -2,19 +2,13 @@ version: '3'
 
 services:
   nginx: 
+    restart: always
     image: nginx:1.15.5-alpine
     container_name: nginx
     volumes:
       - ./conf.d/:/etc/nginx/conf.d
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./default/:/var/www/default
-      # - ./nginx.conf:/etc/nginx/nginx.conf
-      # - ./proxy.conf:/etc/nginx/proxy.conf
-      # - ./fastcgi.conf:/etc/nginx/fastcgi.conf
-      # - ./mime.types:/etc/nginx/mime.types
-      # - //c:/User/rodrigocipriani/workspace/docker/nginx/proxy.conf:/etc/nginx/proxy.conf
-      # - //c:/User/rodrigocipriani/workspace/docker/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf
-      # - //c:/User/rodrigocipriani/workspace/docker/nginx/mime.types:/etc/nginx/mime.types
     ports:
       - 80:80
       - 443:443
