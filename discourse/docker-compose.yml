@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  discourse:
+    container_name: discourse
+    build: .
+    image: rodrigocipriani/discourse:1.0.0
+    # labels:
+    #   kompose.service.type: nodeport
+    ports:
+      - '4107:3000'
+    # depends_on:
+    #   - postgresql
+    #   - redis
+    # volumes:
+    #   - 'discourse_data:/bitnami'
+    environment:
+      LANG: en_US.UTF-8
+      # DISCOURSE_DEFAULT_LOCALE: en
+
+      ## How many concurrent web requests are supported? Depends on memory and CPU cores.
+      ## will be set automatically by bootstrap based on detected CPUs, or you can override
+      UNICORN_WORKERS: 4
+
+      ## TODO: The domain name this Discourse instance will respond to
+      ## Required. Discourse will not work with a bare IP number.
+      DISCOURSE_HOSTNAME: discourse.example.com
+
+      ## Uncomment if you want the container to be started with the same
+      ## hostname (-h option) as specified above (default "$hostname-$config")
+      #DOCKER_USE_HOSTNAME: true
+
+      ## TODO: List of comma delimited emails that will be made admin and developer
+      ## on initial signup example 'user1@example.com,user2@example.com'
+      DISCOURSE_DEVELOPER_EMAILS: 'me@example.com,you@example.com'
+
+      ## TODO: The SMTP mail server used to validate new accounts and send notifications
+      # SMTP ADDRESS, username, and password are required
+      # WARNING the char '#' in SMTP password can cause problems!
+      DISCOURSE_SMTP_ADDRESS: smtp.example.com
+      DISCOURSE_SMTP_PORT: 587
+      DISCOURSE_SMTP_USER_NAME: user@example.com
+      DISCOURSE_SMTP_PASSWORD: "pa$$word"
+      #DISCOURSE_SMTP_ENABLE_START_TLS: true           # (optional, default true)
+
+      ## If you added the Lets Encrypt template, uncomment below to get a free SSL certificate
+      #LETSENCRYPT_ACCOUNT_EMAIL: me@example.com
+
+      ## The CDN address for this Discourse instance (configured to pull)
+      ## see https://meta.discourse.org/t/14857 for details
+      #DISCOURSE_CDN_URL: //discourse-cdn.example.com
+    #   - POSTGRESQL_HOST=postgresql
+    #   - POSTGRESQL_ROOT_USER=postgres
+    #   - POSTGRESQL_CLIENT_CREATE_DATABASE_NAME=bitnami_application
+    #   - POSTGRESQL_CLIENT_CREATE_DATABASE_USERNAME=bn_discourse
+    #   - POSTGRESQL_CLIENT_CREATE_DATABASE_PASSWORD=bitnami1
+    #   - DISCOURSE_POSTGRESQL_NAME=bitnami_application
+    #   - DISCOURSE_POSTGRESQL_USERNAME=bn_discourse
+    #   - DISCOURSE_POSTGRESQL_PASSWORD=bitnami1
+
+# volumes:
+#   discourse_data:
+#     driver: local
