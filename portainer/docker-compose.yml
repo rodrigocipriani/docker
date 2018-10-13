@@ -3,6 +3,7 @@ version: '3'
 services:
 
   templates:
+    restart: always
     image: portainer/templates
     container_name: "portainer-templates"
     networks:
@@ -11,6 +12,7 @@ services:
       - "${PORTAINER_TEMPLATES_PORT}:80"
 
   portainer:
+    restart: always
     image: portainer/portainer
     container_name: "portainer-app"
 #Automatically choose 'Manage the Docker instance where Portainer is running' by adding <--host=unix:///var/run/docker.sock> to the command
@@ -24,6 +26,7 @@ services:
       - "${PORTAINER_APP_PORT}:9000"
 
   watchtower:
+    restart: always
     image: v2tec/watchtower
     container_name: "portainer-watchtower"
     command: --cleanup portainer-app portainer-watchtower portainer/templates
